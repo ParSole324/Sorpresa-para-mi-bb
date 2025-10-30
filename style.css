@@ -1,0 +1,166 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;700&display=swap');
+
+body {
+    margin: 0;
+    font-family: 'Nunito', sans-serif;
+    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+    overflow: hidden;
+    color: #333;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box; /* Importante para que el padding no cause desbordamiento */
+}
+
+.paso {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.oculto {
+    display: none;
+}
+
+h1 {
+    font-family: 'Pacifico', cursive;
+    font-size: 3em;
+    color: #fff;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.25);
+    margin-bottom: 0.5em;
+}
+
+h2 {
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 700;
+}
+
+.cta {
+    font-size: 1.2em;
+    color: #fff;
+    background-color: rgba(0,0,0,0.15);
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+/* --- Nuevo diseño para las fotos y frases --- */
+.contenido-paso {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px; /* Espacio entre imagen y texto */
+    width: 90%;
+    max-width: 1000px;
+}
+
+.contenido-paso img {
+    flex-shrink: 0;
+    width: 45%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    border: 6px solid white;
+}
+
+.contenido-paso .frase {
+    font-size: 1.8em;
+    font-style: italic;
+    color: white;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 25px;
+    border-radius: 15px;
+    text-align: left;
+}
+
+/* --- Botones --- */
+.botones {
+    margin-top: 30px;
+}
+
+button {
+    padding: 15px 30px;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.2em;
+    font-weight: 700;
+    cursor: pointer;
+    margin: 0 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+#btn-si {
+    background-color: #28a745; /* Verde más vivo */
+    color: white;
+}
+
+#btn-si:hover {
+    transform: scale(1.1);
+}
+
+#btn-no {
+    background-color: #dc3545; /* Rojo más intenso */
+    color: white;
+}
+
+/* --- Animación de temblor para el botón "No" --- */
+.shake {
+    animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+@keyframes shake {
+  10%, 90% { transform: translate3d(-1px, 0, 0); }
+  20%, 80% { transform: translate3d(2px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+  40%, 60% { transform: translate3d(4px, 0, 0); }
+}
+
+
+/* --- DISEÑO PARA MÓVILES (Responsivo) --- */
+@media (max-width: 768px) {
+    h1 { font-size: 2.2em; }
+    .contenido-paso {
+        flex-direction: column; /* Apila la imagen y el texto verticalmente */
+        gap: 20px;
+        width: 100%;
+    }
+    .contenido-paso img {
+        width: 80%; /* La imagen ocupa más ancho de la pantalla */
+        max-width: 300px;
+    }
+    .contenido-paso .frase {
+        font-size: 1.4em;
+        text-align: center; /* El texto se centra en móvil */
+    }
+    .botones { display: flex; flex-direction: column; gap: 15px; align-items: center; }
+}
+
+
+/* Corazones de fondo (sin cambios) */
+.corazones { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; }
+.corazon { position: absolute; width: 20px; height: 20px; background-color: rgba(255, 20, 20, 0.7); opacity: 0; transform: rotate(45deg); animation: flotar 10s infinite; }
+.corazon::before, .corazon::after { content: ''; position: absolute; width: 20px; height: 20px; background-color: rgba(255, 20, 20, 0.7); border-radius: 50%; }
+.corazon::before { top: -10px; left: 0; }
+.corazon::after { top: 0; left: -10px; }
+.corazones .corazon:nth-child(1) { left: 10%; animation-delay: 0s; }
+.corazones .corazon:nth-child(2) { left: 30%; animation-delay: 2s; transform: scale(0.6) rotate(45deg); }
+.corazones .corazon:nth-child(3) { left: 50%; animation-delay: 4s; }
+.corazones .corazon:nth-child(4) { left: 70%; animation-delay: 6s; transform: scale(0.8) rotate(45deg); }
+.corazones .corazon:nth-child(5) { left: 90%; animation-delay: 8s; }
+@keyframes flotar { 0% { transform: translateY(100vh) rotate(45deg); opacity: 1; } 100% { transform: translateY(-10vh) rotate(600deg); opacity: 0; } }
