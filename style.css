@@ -5,10 +5,8 @@ body {
     font-family: 'Nunito', sans-serif;
     background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
     color: #333;
-
-    /* --- CAMBIO 1: La clave de la solución --- */
-    overflow-x: hidden; /* Evita el scroll horizontal por los corazones */
-    overflow-y: auto;   /* Permite el scroll vertical SI es necesario */
+    overflow-x: hidden; 
+    overflow-y: auto;   
 }
 
 .container {
@@ -18,9 +16,7 @@ body {
     text-align: center;
     padding: 20px;
     box-sizing: border-box;
-
-    /* --- CAMBIO 2: Permite que el contenedor crezca --- */
-    min-height: 100vh; /* En lugar de height, para que pueda ser más alto que la pantalla */
+    min-height: 100vh;
 }
 
 .paso {
@@ -30,6 +26,10 @@ body {
     justify-content: center;
     width: 100%;
     animation: fadeIn 1s ease-in-out;
+
+    /* --- CAMBIO CLAVE: Espacio de seguridad al final --- */
+    /* Añadimos un espacio equivalente al 20% de la altura de la pantalla al final de cada paso */
+    padding-bottom: 20vh; 
 }
 
 @keyframes fadeIn {
