@@ -2,16 +2,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const pasos = document.querySelectorAll('.paso');
     const btnSi = document.getElementById('btn-si');
     const btnNo = document.getElementById('btn-no');
-    
-    // --- NUEVO: Seleccionamos el elemento de audio ---
     const musicaFondo = document.getElementById('musica-fondo');
 
     let pasoActual = 0;
     let fontSizeSi = 1.2;
     let paddingSi = [15, 30];
-    
-    // --- NUEVO: Una bandera para saber si la música ya empezó ---
     let musicaIniciada = false;
+    
+    // --- NUEVO: Lógica del contador ---
+    let clicksEnNo = 0;
+    const LIMITE_CLICKS_NO = 6; // Ella puede decir "No" 6 veces antes del final
 
     function mostrarSiguientePaso() {
         if (pasoActual < pasos.length - 1) {
@@ -24,15 +24,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     document.addEventListener('click', (e) => {
-        // --- NUEVO: Lógica para iniciar la música con el primer clic ---
         if (!musicaIniciada) {
-            // Intentamos reproducir la música y manejamos posibles errores
             musicaFondo.play().catch(error => {
                 console.log("El usuario debe interactuar con la página primero para reproducir audio.");
             });
-            musicaIniciada = true; // Marcamos que la música ya ha intentado empezar
+            musicaIniciada = true;
         }
-
         const idDelPasoActual = pasos[pasoActual].id;
         if (e.target.tagName !== 'BUTTON') {
             if (idDelPasoActual !== 'pregunta-final' && idDelPasoActual !== 'mensaje-final') {
@@ -41,30 +38,43 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // --- LÓGICA DEL BOTÓN "NO" ACTUALIZADA ---
     btnNo.addEventListener('click', () => {
-        fontSizeSi += 0.5;
-        paddingSi[0] += 5;
-        paddingSi[1] += 10;
+        clicksEnNo++;
         
-        btnSi.style.fontSize = `${fontSizeSi}em`;
-        btnSi.style.padding = `${paddingSi[0]}px ${paddingSi[1]}px`;
+        // Mientras no haya alcanzado el límite, el botón SÍ solo crece
+        if (clicksEnNo < LIMITE_CLICKS_NO) {
+            fontSizeSi += 0.5;
+            paddingSi[0] += 5;
+            paddingSi[1] += 10;
+            
+            btnSi.style.fontSize = `${fontSizeSi}em`;
+            btnSi.style.padding = `${paddingSi[0]}px ${paddingSi[1]}px`;
 
-        btnNo.classList.add('shake');
-        setTimeout(() => {
-            btnNo.classList.remove('shake');
-        }, 400);
+            btnNo.classList.add('shake');
+            setTimeout(() => {
+                btnNo.classList.remove('shake');
+            }, 400);
 
-        const frasesNo = [
-            "¿Segura?", "Inténtalo de nuevo", "Respuesta equivocada",
-            "No es una opción", "¡Casi!", "Sigue intentando",
-            "Creo que te equivocaste", "Mi corazón dice que sí"
-        ];
+            const frasesNo = [
+                "¿Segura?", "Inténtalo de nuevo", "Respuesta equivocada",
+                "No es una opción", "¡Casi!", "Sigue intentando",
+                "Mi corazón dice que sí", "¿Última palabra?"
+            ];
+            let nuevaFrase = frasesNo[Math.floor(Math.random() * frasesNo.length)];
+            while (nuevaFrase === btnNo.innerText) {
+                nuevaFrase = frasesNo[Math.floor(Math.random() * frasesNo.length)];
+            }
+            btnNo.innerText = nuevaFrase;
         
-        let nuevaFrase = frasesNo[Math.floor(Math.random() * frasesNo.length)];
-        while (nuevaFrase === btnNo.innerText) {
-            nuevaFrase = frasesNo[Math.floor(Math.random() * frasesNo.length)];
+        // Al llegar al límite, se activa el final
+        } else {
+            // Hacemos desaparecer el botón NO
+            btnNo.classList.add('desaparecer');
+
+            // Hacemos que el botón SÍ ocupe toda la pantalla
+            btnSi.classList.add('btn-si-final');
         }
-        btnNo.innerText = nuevaFrase;
     });
     
     btnSi.addEventListener('click', () => {
