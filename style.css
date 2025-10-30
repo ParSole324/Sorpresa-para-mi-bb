@@ -4,18 +4,23 @@ body {
     margin: 0;
     font-family: 'Nunito', sans-serif;
     background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
-    overflow: hidden;
     color: #333;
+
+    /* --- CAMBIO 1: La clave de la solución --- */
+    overflow-x: hidden; /* Evita el scroll horizontal por los corazones */
+    overflow-y: auto;   /* Permite el scroll vertical SI es necesario */
 }
 
 .container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
     text-align: center;
     padding: 20px;
-    box-sizing: border-box; /* Importante para que el padding no cause desbordamiento */
+    box-sizing: border-box;
+
+    /* --- CAMBIO 2: Permite que el contenedor crezca --- */
+    min-height: 100vh; /* En lugar de height, para que pueda ser más alto que la pantalla */
 }
 
 .paso {
@@ -58,12 +63,11 @@ h2 {
     cursor: pointer;
 }
 
-/* --- Nuevo diseño para las fotos y frases --- */
 .contenido-paso {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 30px; /* Espacio entre imagen y texto */
+    gap: 30px;
     width: 90%;
     max-width: 1000px;
 }
@@ -88,7 +92,6 @@ h2 {
     text-align: left;
 }
 
-/* --- Botones --- */
 .botones {
     margin-top: 30px;
 }
@@ -106,7 +109,7 @@ button {
 }
 
 #btn-si {
-    background-color: #28a745; /* Verde más vivo */
+    background-color: #28a745;
     color: white;
 }
 
@@ -115,11 +118,10 @@ button {
 }
 
 #btn-no {
-    background-color: #dc3545; /* Rojo más intenso */
+    background-color: #dc3545;
     color: white;
 }
 
-/* --- Animación de temblor para el botón "No" --- */
 .shake {
     animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
 }
@@ -131,26 +133,23 @@ button {
   40%, 60% { transform: translate3d(4px, 0, 0); }
 }
 
-
-/* --- DISEÑO PARA MÓVILES (Responsivo) --- */
 @media (max-width: 768px) {
     h1 { font-size: 2.2em; }
     .contenido-paso {
-        flex-direction: column; /* Apila la imagen y el texto verticalmente */
+        flex-direction: column;
         gap: 20px;
         width: 100%;
     }
     .contenido-paso img {
-        width: 80%; /* La imagen ocupa más ancho de la pantalla */
+        width: 80%;
         max-width: 300px;
     }
     .contenido-paso .frase {
         font-size: 1.4em;
-        text-align: center; /* El texto se centra en móvil */
+        text-align: center;
     }
     .botones { display: flex; flex-direction: column; gap: 15px; align-items: center; }
 }
-
 
 /* Corazones de fondo (sin cambios) */
 .corazones { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; }
